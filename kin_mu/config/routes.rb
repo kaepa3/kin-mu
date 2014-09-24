@@ -4,6 +4,8 @@ Rails.application.routes.draw do
 
   get 'kinmu/show'
 
+  post 'kinmu/update'
+
   root :to => "kinmu#input"
 
   resources(:rosters)

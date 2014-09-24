@@ -1,22 +1,23 @@
-<h1>today: <%=@today%> date:<%= @roster_db.record_date%></h1>
-<%= form_for(@roster_db) do |f| %>
+<h1>today: <%=@today%> date:<%= @record_date%></h1>
+<%= form_for @roster_db ,:url => {:action => :update} do |f| %>
 	<div class="field">
-      	<div class="field_ele">
-        	<%= f.label :StartWorking %>
-          	<%= f.text_field :working_start %>
-      	</div>
-      	<div class="field_ele">
-      		<%= f.label :EndWorking %>
-    		<%= f.text_field :end_working %>
-      	</div>
-      	<div class="field_ele">
-      	    <%= f.label :description %>
-      	    <%= f.text_area :work_description, :size => "20x10"%>
-      	</div>
- 	</div>
-  	<div class="actions">
-    	<%= f.submit %>
+      <%= f.hidden_field :user_id, value: @user_id %>
+    <div class="field_ele">
+    	<%= f.label :working_start %>
+      <%= f.text_field :working_start %>
   	</div>
+    <div class="field_ele">
+  		<%= f.label :EndWorking %>
+    	<%= f.text_field :end_working %>
+    </div>
+  	<div class="field_ele">
+	    <%= f.label :description %>
+      <%= f.text_area :work_description, :size => "20x10"%>
+    </div>
+ 	</div>
+ 	<div class="actions">
+    <%= f.submit %> 
+  </div>
 <% end %>
 
 
