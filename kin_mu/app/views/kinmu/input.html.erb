@@ -1,13 +1,22 @@
-<h1>today: <%=@today%> date:<%= @record.record_date%></h1>
-<%= form_for(@record) do |f| %>
-  <div class="field">
-    <%= f.text_field :working_start %>
-    <%= f.text_field :end_working %>
-    <%= f.text_field :work_description %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+<h1>today: <%=@today%> date:<%= @roster_db.record_date%></h1>
+<%= form_for(@roster_db) do |f| %>
+	<div class="field">
+      	<div class="field_ele">
+        	<%= f.label :StartWorking %>
+          	<%= f.text_field :working_start %>
+      	</div>
+      	<div class="field_ele">
+      		<%= f.label :EndWorking %>
+    		<%= f.text_field :end_working %>
+      	</div>
+      	<div class="field_ele">
+      	    <%= f.label :description %>
+      	    <%= f.text_area :work_description, :size => "20x10"%>
+      	</div>
+ 	</div>
+  	<div class="actions">
+    	<%= f.submit %>
+  	</div>
 <% end %>
 
 
