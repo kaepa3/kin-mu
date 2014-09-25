@@ -39,4 +39,10 @@ gem 'spring',        group: :development
 # gem 'debugger', group: [:development, :test]
 
 #add
+# ninnsyo-
 gem 'devise'
+# windows-
+gem 'tzinfo-data', platforms: [:mingw, :mswin]
+# karenda-
+gem 'momentjs-rails'
+gem 'bootstrap3-datetimepicker-rails'
