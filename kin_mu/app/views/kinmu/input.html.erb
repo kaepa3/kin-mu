@@ -1,8 +1,8 @@
 <div class="field">
   <h1>today: <%=@today%></h1>
 </div>
-<%= form_tag('/users/') do %>
-  <%= date_select :page, :updated_at %>
+<%= form_tag({:action => :input}, {:method => :get}) do %>
+  <%= date_select :dsp_date, :date %>
   <%= submit_tag "change day"%>
 <% end %>
 <div class="field">

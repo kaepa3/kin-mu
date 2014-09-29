@@ -1,29 +1,34 @@
 class KinmuController < ApplicationController
-  def not_input?(param_string)
-    return true if param_string.blank?
-  end 
+  def GetDspDate(param)
+    return Date.today if param.blank?
+    return Date.new(param[:"date(1i)"].to_i, param[:"date(2i)"].to_i, param[:"date(3i)"].to_i)
+  end
   def input
     @roster_db = Roster.new
     @today = Date.today
     @user_id = current_user.id
-	@record_date = @today if not_input?(params[:disp_date])
+    @record_date = GetDspDate(params[:dsp_date])
+    puts @record_date
 
     begin
-      db_serch = Roster.find_by!(record_date: @today, user_id: @user_id)
-      @record_date = db_serch.record_date
+      db_serch = Roster.find_by!(record_date: @record_date, user_id: @user_id)
       # ラベル情報の更新
       @roster_db.working_start     = db_serch.working_start.strftime("%X")
       @roster_db.end_working       = db_serch.end_working.strftime("%X")
       @roster_db.work_description  = db_serch.work_description
     rescue Exception => e
       puts "--例外発生 #{e}\n"
-      @roster_db.working_start = DateTime.now.strftime("%X")
-      @roster_db.end_working   = DateTime.now.strftime("%X")
+      @roster_db.working_start    = DateTime.now.strftime("%X")
+      @roster_db.end_working      = DateTime.now.strftime("%X")
+      @roster_db.work_description = ""
     end
 
   end
 
   def show
+    @date_from = Date.today.beginning_of_month
+    @date_to   = Date.today.end_of_month
+    @serch_result = Roster.where(:conditions => ["record_date >= ? and record_date <= ? ", @date_from, @date_to])
   end
 
   def update
@@ -41,7 +46,7 @@ class KinmuController < ApplicationController
       update_db.end_working      = params[:roster][:end_working]
       update_db.work_description = params[:roster][:work_description]
       result = "error"
-      if update_db.save 
+      if update_db.save
         @result = "complete"
       end
     rescue Exception => e
