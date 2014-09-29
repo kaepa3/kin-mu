@@ -1,2 +1,6 @@
 <h1>Kinmu#show</h1>
+<% @serch_result.each do |record|%>
+  <%= record.record_date %>,<%= record.working_start %>, <%= record.end_working %>, <%= record.work_description %><br>
+<% end %>
+
 <p>Find me in app/views/kinmu/show.html.erb</p>
