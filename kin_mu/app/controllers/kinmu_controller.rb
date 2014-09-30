@@ -28,7 +28,7 @@ class KinmuController < ApplicationController
   def show
     @date_from = Date.today.beginning_of_month
     @date_to   = Date.today.end_of_month
-    @serch_result = Roster.where("user_id == ? and record_date >= ? and record_date <= ? ",current_user.id, @date_from, @date_to)
+    @serch_result = Roster.where("user_id == ? and record_date >= ? and record_date <= ? ",current_user.id, @date_from, @date_to).order(:record_date)
   end
 
   def update

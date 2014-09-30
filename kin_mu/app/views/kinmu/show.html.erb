@@ -1,6 +1,10 @@
-<h1>Kinmu#show</h1>
-<% @serch_result.each do |record|%>
-  <%= record.record_date %>,<%= record.working_start %>, <%= record.end_working %>, <%= record.work_description %><br>
-<% end %>
+<h1>Roster simplified</h1>
+<table border="1" cellpadding="5">
 
-<p>Find me in app/views/kinmu/show.html.erb</p>
+<% @serch_result.each do |rec|%>
+	<div class="tweet">
+		<div class="tweet_date"><%= rec.record_date %></div>
+		<div class="tweet_time"><%= rec.working_start.strftime("%X") %> 〜 <%= rec.end_working.strftime("%X") %></div>
+		<div class="tweet_description"><%= rec.work_description %></div>
+	</div>
+<% end %>
