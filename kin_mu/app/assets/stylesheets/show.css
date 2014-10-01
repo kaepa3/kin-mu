@@ -1,0 +1,24 @@
+div.tweet {
+   -moz-border-radius: 20px;    /* Firefox */
+   -webkit-border-radius: 20px; /* Safari,Chrome */
+   border-radius: 20px;         /* CSS3 */
+   padding: 5px 10px 15px 20px;
+   background-color: #ccffcc;   /* 背景色 */
+   margin:  5px 0px 5px 0px;
+}
+
+div.tweet_date {
+  font-size: large;
+  font-weight: bold;
+  float:left;
+  margin:  0px 20px 0px 0px;
+}
+div.tweet_time{
+  padding: 5px 0px 0px 0px;
+  color: #808080;
+
+}
+div.tweet_description{
+  clear:left;
+  margin:  10px 0px 0px 20px;
+}
