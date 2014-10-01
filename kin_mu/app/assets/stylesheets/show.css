@@ -1,0 +1,33 @@
+/*!
+ * Bootstrap v3.2.0 (http://getbootstrap.com) * Copyright 2011-2014 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ */
+
+/*! normalize.css v3.0.1 | MIT License | git.io/normalize */
+.input_basic {
+}
+
+.input_time {
+	margin: 	5px;
+}
+
+
+#roster_end_working{
+	height: 1.7em;
+}
+#roster_working_start{
+	height: 1.7em;
+}
+
+
+.quick_link {
+	font-weight: bold;
+}
+
+.sub_page_title {
+	font-weight: bold;
+	font-size: 4em;
+}
+.quick_link {
+	font-size: 2em;
+}
