@@ -1,6 +1,13 @@
-<h1>Roster simplified</h1>
-<table border="1" cellpadding="5">
-
+<div class="sub_page_title">
+	Roster simplified
+</div>
+<div class="quick_link">
+	<%= link_to "#{@last_month_string}" , "show#{@last_month_url}" %>
+	 << <%= @this_month_string %> >> 
+	<%= link_to "#{@next_month_string}" , "show#{@next_month_url}" %>
+</div>
+<a class="download" href="/assets/KiN_MU-logo.png" download="">download</a>
+<hr>
 <% @serch_result.each do |rec|%>
 	<div class="tweet">
 		<div class="tweet_date"><%= rec.record_date %></div>
@@ -8,3 +15,4 @@
 		<div class="tweet_description"><%= rec.work_description %></div>
 	</div>
 <% end %>
+</div>

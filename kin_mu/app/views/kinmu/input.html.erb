@@ -1,33 +1,34 @@
-<div class="field">
-  <h1>today: <%=@today%></h1>
+<div class="today_date">
+ 	today: <%=@today%>
 </div>
-<%= form_tag({:action => :input}, {:method => :get}) do %>
-  <%= date_select :dsp_date, :date %>
-  <%= submit_tag "change day"%>
-<% end %>
-<div class="field">
-  <h1>date: <%= @record_date.to_s%></h1>
+<div class="change_day">
+	<%= form_tag({:action => :input}, {:method => :get}) do %>
+	 	<%= date_select :dsp_date, :date %>
+	 	<%= submit_tag "change day"%>
+	<% end %>
 </div>
-
-<%= form_for @roster_db ,:url => {:action => :update} do |f| %>
-  <div class="field">
-      <%= f.hidden_field :user_id, value: @user_id %>
-      <%= f.hidden_field :record_date, value: @record_date %>
-    <div class="field_ele">
-      <%= f.label :working_start %>
-      <%= f.time_field :working_start %>
-    </div>
-    <div class="field_ele">
-      <%= f.label :EndWorking %>
-      <%= f.time_field :end_working %>
-    </div>
-    <div class="field_ele">
-      <%= f.label :description %>
-      <%= f.text_area :work_description, :size => "40x5"%>
-    </div>
-   </div>
-   <div class="actions">
-    <%= f.submit %>
-  </div>
-
-<% end %>
+<hr>
+<div class="input_field">
+	<%= form_for @roster_db ,:url => {:action => :update} do |f| %>
+		<div class="input_date">
+		 	<h1>date: <%= @record_date.to_s%></h1>
+	    	<%= f.hidden_field :user_id, value: @user_id %>
+	    	<%= f.hidden_field :record_date, value: @record_date %>
+	    </div>
+		<div class="input_time">
+	    	<%= f.time_field :working_start %>
+	    	<%= f.label :working_start %>
+	    </div>
+	    <div class="input_time">
+	    	<%= f.time_field :end_working ,:size => "1"%>
+	    	<%= f.label :EndWorking %>
+	    </div>
+	    <div class="input_element">
+	    	<%= f.text_area :work_description, :size => "40x5"%>
+	    	<%= f.label :description %>
+	    </div>
+	  	<div class="input_element">
+	    	<%= f.submit %>
+		</div>
+	<% end %>
+</div>

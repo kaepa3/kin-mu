@@ -1,3 +1,4 @@
+
 class KinmuController < ApplicationController
   def GetDspDate(param)
     return Date.today if param.blank?
@@ -24,11 +25,40 @@ class KinmuController < ApplicationController
     end
 
   end
-
+  def GetShowDate(params)
+    return Date.today.beginning_of_month if params["dsp_year"].blank?
+    return Date.new(params["dsp_year"].to_i, params["dsp_month"].to_i, 1)
+  end
   def show
-    @date_from = Date.today.beginning_of_month
-    @date_to   = Date.today.end_of_month
+    @date_from = GetShowDate(params)
+    @date_to   = @date_from.end_of_month
+	@this_month_string = @date_from.strftime("%Y %m")
+	# 見難いので取得
+	last_month  = @date_from.months_ago(1)
+	next_month  = @date_from.months_since(1)
+	# 設定する
+	@last_month_string = last_month.strftime("%Y %m")
+	@next_month_string = next_month.strftime("%Y %m")
+	@last_month_url = "?dsp_year=#{last_month.strftime("%Y")}&dsp_month=#{last_month.strftime("%m")}"
+	@next_month_url = "?dsp_year=#{next_month.strftime("%Y")}&dsp_month=#{next_month.strftime("%m")}"
     @serch_result = Roster.where("user_id == ? and record_date >= ? and record_date <= ? ",current_user.id, @date_from, @date_to).order(:record_date)
+	DLFileMaker(@serch_result, current_user.id)
+  end
+
+  def DLFileMaker(data_base_records, user_id)
+	output_records = []
+    data_base_records.each{|record|
+		text = ""
+		# 開始時間
+		text += ", #{record.working_start.strftime("%H")}, #{record.working_start.strftime("%M")}"
+		# 終了時間
+		text += ", #{record.end_working.strftime("%H")}, #{record.end_working.strftime("%M")}"
+		# 備考
+		text += ", #{record.work_description}"
+		output_records << text
+    }
+	# ファイル出力	
+	puts "-ddd #{output_records }"
   end
 
   def update
