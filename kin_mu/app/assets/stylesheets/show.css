@@ -1,3 +1,31 @@
+.input_basic {
+}
+
+.input_time {
+  margin:   5px;
+}
+
+
+#roster_end_working{
+  height: 1.7em;
+}
+#roster_working_start{
+  height: 1.7em;
+}
+
+
+.quick_link {
+  font-weight: bold;
+}
+
+.sub_page_title {
+  font-weight: bold;
+  font-size: 4em;
+}
+.quick_link {
+  font-size: 2em;
+}
+
 div.tweet {
    -moz-border-radius: 20px;    /* Firefox */
    -webkit-border-radius: 20px; /* Safari,Chrome */

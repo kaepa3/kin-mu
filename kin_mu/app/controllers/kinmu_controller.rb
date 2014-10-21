@@ -1,17 +1,21 @@
 
 class KinmuController < ApplicationController
   def GetDspDate(param)
-    return Date.today if param.blank?
-    return Date.new(param[:"date(1i)"].to_i, param[:"date(2i)"].to_i, param[:"date(3i)"].to_i)
+    unless param[:dsp_date].blank?
+      return Date.new(param[:dsp_date][:"date(1i)"].to_i, param[:dsp_date][:"date(2i)"].to_i, param[:dsp_date][:"date(3i)"].to_i)
+    end
+    unless  param[:ye].blank?
+      return Date.new(param[:ye].to_i, param[:mo].to_i, param[:day].to_i)
+    end
+
+    return Date.today
   end
   def input
     @roster_db = Roster.new
     @today = Date.today
-    @user_id = current_user.id
-    @record_date = GetDspDate(params[:dsp_date])
-
+    @record_date = GetDspDate(params)
     begin
-      db_serch = Roster.find_by!(record_date: @record_date, user_id: @user_id)
+      db_serch = Roster.find_by!(record_date: @record_date, user_id: current_user.id)
       # ラベル情報の更新
       @roster_db.working_start     = db_serch.working_start.strftime("%X")
       @roster_db.end_working       = db_serch.end_working.strftime("%X")
@@ -32,8 +36,8 @@ class KinmuController < ApplicationController
   def show
     @date_from = GetShowDate(params)
     @date_to   = @date_from.end_of_month
-	@this_month_string = @date_from.strftime("%Y %m")
-	# 見難いので取得
+    @this_month_string = @date_from.strftime("%Y %m")
+    # 見難いので取得
 	last_month  = @date_from.months_ago(1)
 	next_month  = @date_from.months_since(1)
 	# 設定する
@@ -42,7 +46,7 @@ class KinmuController < ApplicationController
 	@last_month_url = "?dsp_year=#{last_month.strftime("%Y")}&dsp_month=#{last_month.strftime("%m")}"
 	@next_month_url = "?dsp_year=#{next_month.strftime("%Y")}&dsp_month=#{next_month.strftime("%m")}"
     @serch_result = Roster.where("user_id == ? and record_date >= ? and record_date <= ? ",current_user.id, @date_from, @date_to).order(:record_date)
-	DLFileMaker(@serch_result, current_user.id)
+    DLFileMaker(@serch_result, current_user.id)
   end
 
   def DLFileMaker(data_base_records, user_id)
@@ -57,21 +61,30 @@ class KinmuController < ApplicationController
 		text += ", #{record.work_description}"
 		output_records << text
     }
-	# ファイル出力	
-	puts "-ddd #{output_records }"
+	# ファイル出力
+#	puts "-ddd #{output_records }"
   end
-
   def update
+
     update_db = Roster.new
-	# 更新か、追加か？
+
+    unless params[:delete].blank?
+      update_db = Roster.find_by!(record_date: params[:delete], user_id: current_user.id)
+      update_db.destroy
+      @result = "delete"
+      return
+    end
+
+    # 更新か、追加か？
     begin
-      update_db = Roster.find_by!(record_date: params[:roster][:record_date], user_id: params[:roster][:user_id])
+      update_db = Roster.find_by!(record_date: params[:roster][:record_date], user_id: current_user.id)
     rescue Exception => e
       puts "--データ新規追加 #{e} #{params[:roster]} #{params[:roster][:end_working].class}"
     end
+
     begin
       update_db.record_date      = params[:roster][:record_date]
-      update_db.user_id          = params[:roster][:user_id]
+      update_db.user_id          = current_user.id
       update_db.working_start    = params[:roster][:record_date] + " " + params[:roster][:working_start]
       update_db.end_working      = params[:roster][:record_date] + " " + params[:roster][:end_working]
       update_db.work_description = params[:roster][:work_description]

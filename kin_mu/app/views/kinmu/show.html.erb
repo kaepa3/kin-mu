@@ -13,6 +13,9 @@
 		<div class="tweet_date"><%= rec.record_date %></div>
 		<div class="tweet_time"><%= rec.working_start.strftime("%X") %> 〜 <%= rec.end_working.strftime("%X") %></div>
 		<div class="tweet_description"><%= rec.work_description %></div>
+		<hr style="margin:5px 5px;">
+		<%= link_to "delete" , "update?delete=#{rec.record_date}", :method => :post ,:confirm => "本当に削除しますか？" %> | 
+		<%= link_to "edit"   , "input?ye=#{rec.record_date.year}&mo=#{rec.record_date.mon}&day=#{rec.record_date.mday}" %>
 	</div>
 <% end %>
 </div>

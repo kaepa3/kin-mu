@@ -12,7 +12,6 @@
 	<%= form_for @roster_db ,:url => {:action => :update} do |f| %>
 		<div class="input_date">
 		 	<h1>date: <%= @record_date.to_s%></h1>
-	    	<%= f.hidden_field :user_id, value: @user_id %>
 	    	<%= f.hidden_field :record_date, value: @record_date %>
 	    </div>
 		<div class="input_time">
@@ -20,7 +19,7 @@
 	    	<%= f.label :working_start %>
 	    </div>
 	    <div class="input_time">
-	    	<%= f.time_field :end_working ,:size => "1"%>
+	    	<%= f.time_field :end_working %>
 	    	<%= f.label :EndWorking %>
 	    </div>
 	    <div class="input_element">
