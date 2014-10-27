@@ -1,5 +1,18 @@
 <h1>Kinmu#update</h1>
-<%=@result%>
-<%= link_to "input screen", :controller => "kinmu", :action => "input" %>
+<h2><%=@result%></h2>
+※jump to "show" 5sec later<br>
+<%= link_to "input", :controller => "kinmu", :action => "input" %>
 <%= link_to "show", :controller => "kinmu", :action => "show" %>
 <p>Find me in app/views/kinmu/update.html.erb</p>
+
+<!--５秒後にとびまっせ -->
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+	function autoLink()
+	{
+		location.href="/kinmu/show";
+	}
+	setTimeout("autoLink()",5000);　　//数字は何秒後か（例:5秒後）
+// -->
+</SCRIPT>
+

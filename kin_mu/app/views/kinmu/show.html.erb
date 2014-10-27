@@ -6,7 +6,9 @@
 	 << <%= @this_month_string %> >> 
 	<%= link_to "#{@next_month_string}" , "show#{@next_month_url}" %>
 </div>
-<a class="download" href="/assets/KiN_MU-logo.png" download="">download</a>
+<div class="download">
+	<%= link_to  "download", href="/assets/KiN_MU-logo.png" %>
+</div>
 <hr>
 <% @serch_result.each do |rec|%>
 	<div class="tweet">
@@ -14,7 +16,7 @@
 		<div class="tweet_time"><%= rec.working_start.strftime("%X") %> 〜 <%= rec.end_working.strftime("%X") %></div>
 		<div class="tweet_description"><%= rec.work_description %></div>
 		<hr style="margin:5px 5px;">
-		<%= link_to "delete" , "update?delete=#{rec.record_date}", :method => :post ,:confirm => "本当に削除しますか？" %> | 
+		<%= link_to "delete" , "update?delete=#{rec.record_date}" ,data: {:confirm => "本当に削除しますか？" }, :method => :post%> | 
 		<%= link_to "edit"   , "input?ye=#{rec.record_date.year}&mo=#{rec.record_date.mon}&day=#{rec.record_date.mday}" %>
 	</div>
 <% end %>
