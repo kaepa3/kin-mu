@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   post 'kinmu/update'
   post 'kinmu/update'
 
-  #root :to => 'kinmu#input'
+  root :to => 'kinmu#input'
 
   resources(:rosters)
   # The priority is based upon order of creation: first created -> highest priority.
