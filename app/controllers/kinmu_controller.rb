@@ -45,22 +45,22 @@ class KinmuController < ApplicationController
 	@next_month_string = next_month.strftime("%Y %m")
 	@last_month_url = "?dsp_year=#{last_month.strftime("%Y")}&dsp_month=#{last_month.strftime("%m")}"
 	@next_month_url = "?dsp_year=#{next_month.strftime("%Y")}&dsp_month=#{next_month.strftime("%m")}"
-    @serch_result = Roster.where("user_id == ? and record_date >= ? and record_date <= ? ",current_user.id.to_i, @date_from, @date_to).order(:record_date)
+    @serch_result = Roster.where("user_id == ¥"?¥" and record_date >= ? and record_date <= ? ",current_user.id.to_i, @date_from, @date_to).order(:record_date)
     DLFileMaker(@serch_result, current_user.id)
   end
 
   def DLFileMaker(data_base_records, user_id)
 	output_records = []
-    data_base_records.each{|record|
-		text = ""
-		# 開始時間
-		text += ", #{record.working_start.strftime("%H")}, #{record.working_start.strftime("%M")}"
-		# 終了時間
-		text += ", #{record.end_working.strftime("%H")}, #{record.end_working.strftime("%M")}"
+  data_base_records.each{ |record|
+    text = ""
+    # 開始時間
+    text += ", #{record.working_start.strftime("%H")}, #{record.working_start.strftime("%M")}"
+    # 終了時間
+    text += ", #{record.end_working.strftime("%H")}, #{record.end_working.strftime("%M")}"
 		# 備考
-		text += ", #{record.work_description}"
-		output_records << text
-    }
+    text += ", #{record.work_description}"
+    output_records << text
+  }
 	# ファイル出力
 #	puts "-ddd #{output_records }"
   end
